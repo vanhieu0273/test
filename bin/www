@@ -4,15 +4,25 @@
  * Module dependencies.
  */
 
+
+
 var app = require('../app');
 var debug = require('debug')('expressjs:server');
 var http = require('http');
+var mongoose = require('mongoose');
+const mongoURI = "mongodb://localhost:27017/sport-store";
+
+mongoose.connect(mongoURI,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('Connected MongoDB'))
+  .catch((err) => console.log("fail connect to mongoDB", err));
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 
@@ -89,4 +99,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('Compile success');
+  
 }
